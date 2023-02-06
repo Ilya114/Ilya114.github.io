@@ -1,0 +1,16 @@
+html {
+    font-family: "Arial";
+    color: white;
+}
+a:link, a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:active {
+    background-color: 190, 190, 190;
+    color: gray;
+}
+.nav {
+    float: right;
+}.
