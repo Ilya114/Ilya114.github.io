@@ -21,7 +21,7 @@ table, th, td, tr {
     border-collapse: collapse;
 }
 .nav {
-    float: left;
+    float: right;
     display: inline-table;
 }
 :link:hover
