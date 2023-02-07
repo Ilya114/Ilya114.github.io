@@ -1,6 +1,7 @@
 html {
     font-family: "Arial";
     color: white;
+    line-height: 120%;
 }
 body {background-color: #24292f;}
 a:link, a:visited {
@@ -8,14 +9,22 @@ a:link, a:visited {
     background-color: transparent;
     text-decoration: none;
 }
+a {
+    text-decoration: none;
+}
 a:active {
     background-color: 190, 190, 190;
     color: grey;
 }
 table, th, td, tr {
-  border: 1px solid grey;
-  border-collapse: collapse;
+    border: 1px solid grey;
+    border-collapse: collapse;
 }
 .nav {
-    float: right;
+    float: left;
+    display: inline-table;
+}
+:link:hover
+    {
+    outline: solid white;
 }

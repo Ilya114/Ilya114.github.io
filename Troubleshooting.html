@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<title>Windows on POCO X3 Pro</title>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body style="background-color:#24292f;">
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<div class="nav">
+    <a href="index.html"><b>Windows on POCO X3 Pro</b></a>
+    <a href="https://t.me/winonvayuch">⠀Channel⠀</a>
+    <a href="https://t.me/winonvayu">Group⠀</a>
+    <a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">GitHub project⠀</a>
+    <a href="LanguageSelector.html">Language⠀</a>
+    <a href="Status.html">Project status⠀</a>
+    <a href="https://github.com/wormstest/wormstest.github.io/issues">Report errors</a>
+</div><br>
+<hr></hr>
+<b>Troobleshooting issues</b></br>
+
+<details>
+<summary>Device can boot into Android but not bootloader</summary>
+<small>Need files: <a href="https://developer.android.com/studio/releases/platform-tools">platform-tools</a></small></br>
+This is caused by partitions with volume names the bootloader cannot handle, to fix this:<br>
+1. Boot to recovery<br>
+2. Connect phone to PC<br>
+3. Open cmd on PC<br>
+4. Run <code>adb shell</code><br>
+5. Run <code>parted</code><br>
+6. Run <code>print</code> to list all partitions<br>
+7. Look for partitions that have spaces in the names e.g "Basic Data Partition" and note their volume number<br>
+8. Now run <code>`rm vol number`</code> e.g <code>rm 36</code>
+</details>
+
+<details>
+<summary>Touchscreen touches are inaccurate/upside down</summary>
+You have incorrectly configured the touch driver, to fix this [follow this part of the guide](/install.md#check-what-type-of-panel-you-have)
+</details>
+<hr></hr>
+<small><small><p>Site creating by Ilya114. If you have any questions you can contact with me in <b><a href="https://t.me/wormixtest">Telegram</a></b>.</p></small></small>
+</body>
+</html>
+

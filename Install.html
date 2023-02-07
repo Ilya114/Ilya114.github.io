@@ -1,0 +1,157 @@
+ <!DOCTYPE HTML>
+<html>
+<title>Windows on POCO X3 Pro</title>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<div class="nav">
+    <a href="index.html"><b>Windows on POCO X3 Pro</b></a>
+    <a href="https://t.me/winonvayuch">⠀Channel⠀</a>
+    <a href="https://t.me/winonvayu">Group⠀</a>
+    <a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">GitHub project⠀</a>
+    <a href="LanguageSelector.html">Language⠀</a>
+    <a href="Status.html">Project status⠀</a>
+    <a href="https://github.com/wormstest/wormstest.github.io/issues">Report errors</a>
+</div><br>
+<hr></hr>
+<big><b style="font-size: 23px">Install Windows on POCO X3 Pro</b></big><br>
+<b style="font-size: 20px">Create partitions for Windows</b><br>
+<b>Notes:</b><br>
+⚠️ Warning! If you delete any partitions via diskpart later on or now windows will send a UFS command that gets misinterpreted which erase all your UFS.
+<ul>
+    <li>These commands have been tested.</li>
+    <li>All your data in Android will be erased! Backup now if needed.</li>
+    <li>Ignore `udevadm` warnings.</li>
+    <li>Do not run the same command twice.</li>
+    <li>DO NOT REBOOT YOUR PHONE if you think you made a mistake, ask for help in the <b><a href="https://t.me/winonvayu">Telegram chat</a></li></b>
+</ul>
+
+<b>Need files</b>
+
+<ul>
+    <li><a href="https://uupdump.net/">Windows 10/11 ARM image(Windows 11 is recommended)</a></li></b>
+    <li><a href="https://developer.android.com/studio/releases/platform-tools">platform-tools(ADB & Fastboot)</a></li>
+    <li><a href="https://github.com/WOA-Project/DriverUpdater/releases">DriverUpdater for install and update drivers</a></li>
+    <li><a href="https://github.com/degdag/edk2-msm/releases/tag/V2.1.0">UEFI image</a></li>
+    <li><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro/releases/tag/Recoveries">Modified TWRP or OrangeFox</a></li>
+</ul>
+
+<b>Boot TWRP or OrangeFox recovery through the PC with the command: <code>fastboot boot recovery.img</code></b><br>
+<b>Unmount all partitions:</b> Go to TWRP "Mount" menu and unmount all partitions.<br>
+
+<b>Start the ADB shell: <code>adb shell</code></b><br>
+
+⚠️ Do not run all commands at once, execute them in order!<br>
+
+⚠️ DO NOT MAKE ANY MISTAKE!!! YOU CAN BREAK YOUR DEVICE WITH THE COMMANDS BELOW IF YOU DO THEM WRONG!!!<br>
+
+<b>Resize the partition table to the Windows partitions would fit:</b><code> sgdisk --resize-table 64 /dev/block/sda</code><br>
+
+<b>Start parted:</b> <code>parted /dev/block/sda</code><br>
+
+<b>Delete the `userdata` partition:</b> <code>rm 32</code><br>
+<small>You can make sure that 32 is the userdata partition number by running: <code>print all</code></small><br>
+
+<b>Create `win, esp and userdata` partitions</b><br>
+<small>If you get any warning message telling you to ignore or cancel, just type i and press enter.</small>
+<details>
+<summary>For 6/128 models</summary>
+
+<li>Create the ESP partition (stores Windows bootloader data and EFI files)</li>
+<code>mkpart esp fat32 11.8GB 12.2GB</code>
+<li>Create the main partition where Windows will be installed to</li>
+<code>mkpart win ntfs 12.2GB 70.2GB</code>
+<li>Create Android data partition</li>
+<code>mkpart userdata ext4 70.2GB 127GB</code>
+
+</details>
+
+<details>
+<summary>For 8/256 models</summary>
+
+<li>Create the ESP partition (stores Windows bootloader data and EFI files)</li>
+<code>mkpart esp fat32 11.8GB 12.2GB</code>
+<li>Create the main partition where Windows will be installed to</li>
+<code>mkpart win ntfs 12.2GB 132.2GB</code>
+<li>Create Android data partition</li>
+<code>mkpart userdata ext4 132.2GB 255GB</code>
+
+</details>
+
+<b>Make ESP partiton bootable so the EFI image can detect it: <code>set 32 esp on</code></b>
+
+<b>>Quit from parted: <code>quit</code></b>
+
+<li>Reboot to TWRP</li>
+
+<b>Start the ADB shell again: <code>adb shell</code></b><br>
+
+<b>Format partitions for future use</b><br>
+<code>
+mkfs.fat -F32 -s1 /dev/block/by-name/esp -n ESPVAYU<br>
+mkfs.ntfs -f /dev/block/by-name/win -L WINVAYU<br>
+</code>
+
+<li>Format data for use Android: go to "Wipe" menu and press Format Data, then type `yes` and click "✓".</li>
+
+<b>Check if Android still starts</b><br>
+Restart the phone, and see if Android still works.<br>
+
+<b style="font-size: 20px">Install Windows</b><br>
+<small>You need to have MTP disabled in "Mount" menu</small><br>
+
+<b>Execute the msc script: </b><code>adb shell msc.sh</code><br>
+
+<b>Assign letters to partitions</b><br>
+<small>Once the X3 Pro is detected as a disk launch diskpart</small><br>
+<code>Use list volume to find Windows and ESP partitions, it's the ones named "WINVAYU" and "ESPVAYU"<br>
+# select volume <win-partition-number><br>
+# assign letter=x<br>
+# select volume <esp-partition-number><br>
+# assign letter=y<br>
+# exit </code><br>
+
+<b>Deploying a Windows image</b><br>
+<small>Replace `path\to\install.wim` with the actual install.wim path, located in sources folder inside your ISO</small><br>
+<small>You can get it either by mounting or extracting it</small><br>
+<code>dism /apply-image /ImageFile:path\to\install.wim /index:1 /ApplyDir:X:\</code><br>
+
+<b>Create Windows bootloader files for the EFI:</b> <code>bcdboot X:\Windows /s Y: /f UEFI</code><br>
+
+<b>Allow unsigned drivers: </b><code>bcdedit /store Y:\EFI\Microsoft\BOOT\BCD /set {default} testsigning on</code><br>
+<small>If don't do this you'll get a BSOD</small><br>
+
+<b style="font-size: 14px">Check what type of panel you have</b><br>
+<small>Go to platform-tools folder and run: </small><code>adb shell cat /proc/cmdline</code>
+<small>Look for `msm_drm.dsi_display0` almost at the bottom<br>
+If your device is `Tianma` `msm_drm.dsi_display0` will be `dsi_j20s_36_02_0a_video_display`<br>
+If your device is `Huaxing` `msm_drm.dsi_display0` will be `dsi_j20s_42_02_0b_video_display`, if it is, go to the drivers folder `Vayu-Drivers/components/QC8150/Device/DEVICE.SOC_QC8150.VAYU/Drivers/Touch/` and delete j20s_novatek_ts_fw01.bin, finally rename j20s_novatek_ts_fw02.bin to j20s_novatek_ts_fw01.bin<br></small>
+<b>Install drivers: </b><code>driverupdater.exe -d <vayudriversfolder>\definitions\Desktop\ARM64\Internal\vayu.txt -r <vayudriversfolder> -p X:</code>
+Replace `vayudriversfolder` with the location of the drivers folder<br></small>
+
+<b>Boot into Windows</b>
+
+<details>
+<summary><strong>Dualboot between Android and Windows</strong></summary>
+
+<li>You should follow <b><a href="Dualboot.html">this guide</a></b></li>
+
+</details>
+
+<details>
+<summary>Boot Windows manually every time</summary>
+
+Reboot the phone into fastboot then boot into UEFI: <code>fastboot boot `uefi.img`</code><br>
+
+Android will boot on reboot, you need boot into UEFI again to boot into Windows.
+</details>
+
+<li> If you have a BSOD with error code BOUND_IMAGE_UNSUPPORTED when you first boot Windows, you need to use <b><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro/releases">old UEFI</a></b> for first boot (touchscreen not working in the old version of UEFI).
+<hr></hr>
+<small><small><p>Site creating by Ilya114. If you have any questions you can contact with me in <b><a href="https://t.me/wormixtest">Telegram</a></b>.</p></small></small>
+</body>
+</html>
+
