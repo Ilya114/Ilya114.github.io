@@ -18,27 +18,16 @@
     <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Report errors</a></button>
 </div><br>
 <hr></hr>
-<p><b>Update drivers instructions</b></br>
-Start TWRP recovery through the PC with the command: <code>fastboot boot `recovery.img`</code><br>
-<small>If you already have TWRP installed, just hold the power and vol+ buttons at startup</small></p>
-
-<p><b>Execute script msc.sh: <code>adb shell msc.sh</code></b></p>
-
-<p><b>Assign letters to partitions</b><br>
-<small>Once the X3 Pro is detected as a disk launch diskpart</small><br>
-<code>Use list volume to find Windows and ESP partitions, it's the ones named "WINVAYU" and "ESPVAYU"<br>
-# select volume <win-partition-number><br>
-# assign letter=x<br>
-# select volume <esp-partition-number><br>
-# assign letter=y<br>
-# exit </code></p>
-
-<p><b>Install drivers</b><br>
-<small>Open cmd as administrator and go to driverupdater location</small><br>
-<small>Replace `vayudriversfolder` with the location of the drivers folder</small><br>
-<code>.\driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r `vayudriversfolder` -p X:</code>
+<p><b style="font-size: 20px">Guides</b><br></p>
+<ul>
+    <li><a href="Install.html">Windows installattion instructions</a></li>
+    <li><a href="Reinstall.html">Reinstall Windows instructions</a></li>
+    <li><a href="Dualboot.html">Dualboot beetween Android and Windows</a></li>
+    <li><a href="Uninstall.html">Uninstall Windows instructions</a></li>
+    <li><a href="Update.html">Update drivers instructions</a></li>
+    <li><a href="Troubleshooting.html">Troubleshooting issues</a></li>
+</ul>
 <hr></hr>
 <small><small>(c) 2023 Ilya114</small></small>
 </body>
 </html>
-

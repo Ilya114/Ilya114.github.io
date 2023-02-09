@@ -1,4 +1,4 @@
- <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 <title>Windows on POCO X3 Pro</title>
 <html lang="en">
@@ -10,6 +10,7 @@
 <div class="nav">
     <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
     <button class = "btnnav"><a href="https://t.me/winonvayuch">Channel</a></button>
+    <button class = "btnnav"><a href="Guides.html">Guides</a></button>
     <button class = "btnnav"><a href="https://t.me/winonvayu">Group</a></button>
     <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">GitHub project</a></button>
     <button class = "btnnav"><a href="LanguageSelector.html">Language</a></button>
@@ -17,7 +18,7 @@
     <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Report errors</a></button>
 </div><br>
 <hr></hr>
-<p><big><b style="font-size: 23px">Windows installattion instructions</b></big><br></p>
+<p><b style="font-size: 23px">Windows installattion instructions</b><br></p>
 <p><b style="font-size: 20px">Create partitions for Windows</b><br></p>
 <b>Notes:</b><br>
 ⚠️ Warning! If you delete any partitions via diskpart later on or now windows will send a UFS command that gets misinterpreted which erase all your UFS.
@@ -30,9 +31,8 @@
 </ul>
 
 <b>Need files:</b>
-
 <ul>
-    <li><a href="https://uupdump.net/"><b>Windows 10/11 ARM image</b></a> (Windows 11 is recommended)</li></b>
+    <li><a href="https://uupdump.net/"><b>Windows 10/11 ARM image</b></a> (Windows 11 is recommended)</li>
     <li><a href="https://developer.android.com/studio/releases/platform-tools"><b>platform-tools</b></a> (ADB & Fastboot)</li>
     <li><a href="files/win-x64.zip"><b>DriverUpdater</b></a> for install and update <a href="files/drivers_2.3.0.zip"><b>drivers</a></b></li>
     <li><a href="files/vayu-uefi-v2.1.0-release.zip"><b>UEFI image</b></a></li>
@@ -132,7 +132,7 @@ If your device is `Huaxing` `msm_drm.dsi_display0` will be `dsi_j20s_42_02_0b_vi
 <p><b>Install drivers: </b><code>driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r <vayudriversfolder> -p X:</code><br>
 <small>Replace `vayudriversfolder` with the location of the drivers folder</small></p>
 
-<b>Boot into Windows:</b><br>
+<b>Boot and setting Windows:</b><br>
 
 <details>
 <summary>Dualboot between Android and Windows</summary>
@@ -149,9 +149,34 @@ Reboot the phone into fastboot then boot into UEFI: <code>fastboot boot `uefi.im
 Android will boot on reboot, you need boot into UEFI again to boot into Windows.
 </details>
 
-<p><li> If you have a BSOD with error code BOUND_IMAGE_UNSUPPORTED when you first boot Windows, you need to use <b><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro/releases">old UEFI</a></b> for first boot (touchscreen not working in the old version of UEFI).</p>
+<p><li>If you have a BSOD with error code BOUND_IMAGE_UNSUPPORTED when you first boot Windows, you need to use <b><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro/releases">old UEFI</a></b> for first boot (touchscreen not working in the old version of UEFI).</p>
+<details>
+<summary>Instructions for setting up the `sensors` folder for sensors to work in Windows</summary>
+<b>Need files:</b>
+<ul>
+    <li>Modified <a href="files/twrp_mod.zip"><b>TWRP</b></a> or <a href="files/ofox_mod.zip"><b>OrangeFox</b></a></li>
+</ul>
+<p><b>Boot TWRP or OrangeFox recovery through the PC with the command: <code>fastboot boot recovery.img</code></b></p>
+<p><b>Mount Windows partition: go to "Mount" menu and click on "Windows" partition</code></b></p>
+<p><b>Connect phone to PC and start adb shell: <code>adb shell</code></b></p>
+<p><b>Remove already exist `sensors` directory from Windows: <code>rm -r /win/Windows/System32/Drivers/DriverData/QUALCOMM/fastRPC/persist/sensors</code></b></p>
+<p><b>Copy new `sensors` folder from /persist: <code>cp -r /persist/sensors /win/Windows/System32/Drivers/DriverData/QUALCOMM/fastRPC/persist</code></b>
+</details>
+
+<details>
+<summary>Instructions for provision `modem` (need before every boot Windows)</summary>
+<b>Need files:</b>
+<ul>
+    <li>Modified <a href="files/twrp_mod.zip"><b>TWRP</b></a> or <a href="files/ofox_mod.zip"><b>OrangeFox</b></a></li>
+</ul>
+<p><b>Boot TWRP or OrangeFox recovery through the PC with the command: <code>fastboot boot recovery.img</code></b></p>
+<p><b>Mount Windows partition: go to "Mount" menu and click on "Windows" partition</code></b></p>
+<p><b>Connect phone to PC and start adb shell: <code>adb shell</code></b></p>
+<p><b>Remove previous modem files: <code>rm /win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/bootmodem_fs1 /win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/bootmodem_fs2</code></b>
+<p><b>Copy new modem files: <code>dd if=/dev/block/by-name/modemst1 of=/win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/ && dd if=/dev/block/by-name/modemst2 of=/win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/</code></b></p>
+</details>
 <hr></hr>
-<small><small>Site creating by Ilya114. If you have any questions you can contact with me in <b><a href="https://t.me/wormixtest">Telegram</a></b>.</small></small>
+<small><small>(c) 2023 Ilya114</small></small>
 </body>
 </html>
 

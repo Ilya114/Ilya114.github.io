@@ -1,6 +1,5 @@
 html {
     font-family: "sans-serif";
-    line-height: 120%;
     color: white;
 }
 body {background-color: #000020;}
@@ -32,7 +31,6 @@ table, th, td, tr {
     display: inline-table;
 }
 
-:link:hover
-    {
-    box-shadow: inset 0 -2px 0 0 white;
+a:hover {
+    color: grey;
 }

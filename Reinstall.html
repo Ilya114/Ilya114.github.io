@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<title>Windows on POCO X3 Pro</title>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<div class="nav">
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">Channel</a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">Group</a></button>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">GitHub project</a></button>
+    <button class = "btnnav"><a href="LanguageSelector.html">Language</a></button>
+    <button class = "btnnav"><a href="Status.html">Project status</a></button>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Report errors</a></button>
+</div><br>
+<hr></hr>
+<p><b style="font-size: 23px">Reinstall Windows instructions</b><br></p>
+<p><b style="font-size: 20px">Format partitions</b><br></p>
+<b>Need files:</b>
+<ul>
+    <li><a href="https://uupdump.net/"><b>Windows 10/11 ARM image</b></a> (Windows 11 is recommended)</li>
+    <li><a href="https://developer.android.com/studio/releases/platform-tools"><b>platform-tools</b></a> (ADB & Fastboot)</li>
+    <li><a href="files/win-x64.zip"><b>DriverUpdater</b></a> for install and update <a href="files/drivers_2.3.0.zip"><b>drivers</a></b></li>
+    <li><a href="files/vayu-uefi-v2.1.0-release.zip"><b>UEFI image</b></a></li>
+    <li>Modified <a href="files/twrp_mod.zip"><b>TWRP</b></a> or <a href="files/ofox_mod.zip"><b>OrangeFox</b></a></li>
+</ul>
+
+<p><b>Boot TWRP or OrangeFox recovery through the PC with the command: <code>fastboot boot recovery.img</code></b></p>
+<p><b>Unmount all partitions:</b> Go to TWRP "Mount" menu and unmount all partitions.</p>
+
+<p><b>Start the ADB shell: <code>adb shell</code></b></p>
+
+<p><b>Format partitions for future reinstall Windows:</b><br>
+<code>
+mkfs.fat -F32 -s1 /dev/block/by-name/esp -n ESPVAYU<br>
+mkfs.ntfs -f /dev/block/by-name/win -L WINVAYU<br>
+</code></p>
+
+<p><b style="font-size: 20px">Install Windows</b><br>
+<small>You need to have MTP disabled in "Mount" menu</small></p>
+
+<p><b>Execute the msc script: </b><code>adb shell msc.sh</code></p>
+
+<p><b>Assign letters to partitions</b><br>
+<small>Once the X3 Pro is detected as a disk launch diskpart</small><br>
+<code>Use list volume to find Windows and ESP partitions, it's the ones named "WINVAYU" and "ESPVAYU"<br>
+# select volume <win-partition-number><br>
+# assign letter=x<br>
+# select volume <esp-partition-number><br>
+# assign letter=y<br>
+# exit </code></p>
+
+<p><b>Deploying a Windows image</b><br>
+<small>Replace `path\to\install.wim` with the actual install.wim path, located in sources folder inside your ISO</small><br>
+<small>You can get it either by mounting or extracting it</small><br>
+<code>dism /apply-image /ImageFile:path\to\install.wim /index:1 /ApplyDir:X:\</code></p>
+
+<p><b>Create Windows bootloader files for the EFI:</b> <code>bcdboot X:\Windows /s Y: /f UEFI</code></p>
+
+<p><b>Allow unsigned drivers: </b><code>bcdedit /store Y:\EFI\Microsoft\BOOT\BCD /set {default} testsigning on</code><br>
+<small>If don't do this you'll get a BSOD</small></p>
+
+<p><b id="check-panel-type">Check what type of panel you have</b><br>
+<small>Go to platform-tools folder and run: </small><code>adb shell cat /proc/cmdline</code>
+<small>Look for `msm_drm.dsi_display0` almost at the bottom<br>
+If your device is `Tianma` `msm_drm.dsi_display0` will be `dsi_j20s_36_02_0a_video_display`<br>
+If your device is `Huaxing` `msm_drm.dsi_display0` will be `dsi_j20s_42_02_0b_video_display`, if it is, go to the drivers folder `Vayu-Drivers/components/QC8150/Device/DEVICE.SOC_QC8150.VAYU/Drivers/Touch/` and delete j20s_novatek_ts_fw01.bin, finally rename j20s_novatek_ts_fw02.bin to j20s_novatek_ts_fw01.bin</small></p>
+
+<p><b>Install drivers: </b><code>driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r <vayudriversfolder> -p X:</code><br>
+<small>Replace `vayudriversfolder` with the location of the drivers folder</small></p>
+
+<b>Boot into Windows:</b><br>
+
+<details>
+<summary>Dualboot between Android and Windows</summary>
+
+<li>You should follow <b><a href="Dualboot.html">this guide</a></b></li>
+
+</details>
+
+<details>
+<summary>Boot Windows manually every time</summary>
+
+Reboot the phone into fastboot then boot into UEFI: <code>fastboot boot `uefi.img`</code><br>
+
+Android will boot on reboot, you need boot into UEFI again to boot into Windows.
+</details>
+
+<p><li> If you have a BSOD with error code BOUND_IMAGE_UNSUPPORTED when you first boot Windows, you need to use <b><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro/releases">old UEFI</a></b> for first boot (touchscreen not working in the old version of UEFI).</p>
+<hr></hr>
+<small><small>(c) 2023 Ilya114</small></small>
+</body>
+</html>
