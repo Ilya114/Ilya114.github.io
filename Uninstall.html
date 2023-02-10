@@ -3,25 +3,29 @@
 <title>Windows on POCO X3 Pro</title>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <div class="nav">
     <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
     <button class = "btnnav"><a href="https://t.me/winonvayuch">Channel</a></button>
+    <button class = "btnnav"><a href="Guides.html">Guides</a></button>
     <button class = "btnnav"><a href="https://t.me/winonvayu">Group</a></button>
     <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">GitHub project</a></button>
     <button class = "btnnav"><a href="LanguageSelector.html">Language</a></button>
     <button class = "btnnav"><a href="Status.html">Project status</a></button>
     <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Report errors</a></button>
 </div><br>
+<hr></hr>
 <big><b>Uninstall Windows</big></b><br>
-<small>Need files: [gpt_both0.bin](../../../../releases/tag/binaries)</small><br>
-<small>Replace <code>`gpt_both0.bin`</code> with the path to the gpt_both0.bin file.</small><br>
-<code>fastboot flash partition:0 `gpt_both0.bin`</code><br>
-Erase userdata to avoid bootloop and restore FS size<br>
-<code>fastboot -w</code><br>
+<p><b>Need files: </b></p>
+<ul>
+  <li><a href ="files/gpt_both0.bin"><b>gpt_both0.bin</b></a><br></li>
+</ul>
+<p><b>Replace <code>`gpt_both0.bin`</code> with the path to the gpt_both0.bin file and flash it to uninstall Windows: <code>fastboot flash partition:0 `gpt_both0.bin`</code></b></p>
+
+<p><b>Erase userdata to avoid bootloop and restore FS size: <code>fastboot -w</code></b></p>
 <hr></hr>
 <small><small>Site creating by Ilya114. If you have any questions you can contact with me in <b><a href="https://t.me/wormixtest">Telegram</a></b>.</small></small>
 </body>
