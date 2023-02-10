@@ -1,6 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 html {
-    font-family: "sans-serif";
     color: white;
+    font-family: "Roboto";
 }
 body {background-color: #000020;}
 a:link, a:visited {
