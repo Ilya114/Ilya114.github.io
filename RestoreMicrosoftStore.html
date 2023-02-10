@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<title>Windows on POCO X3 Pro</title>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<div class="nav">
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">Channel</a></button>
+    <button class = "btnnav"><a href="Guides.html">Guides</a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">Group</a></button>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">GitHub project</a></button>
+    <button class = "btnnav"><a href="LanguageSelector.html">Language</a></button>
+    <button class = "btnnav"><a href="Status.html">Project status</a></button>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Report errors</a></button>
+</div><br>
+<hr></hr>
+<p><b style="font-size: 20px">Restore Microsoft Store</b><br></p>
+<p>Sometimes UUPDump not downloading some files and Microsoft Store can lacks in your Windows build. Write this command in PowerShell to restore Microsoft Store: <code>wsreset -i</code>. You should start seeing installation progress in the notification center. If this not helped, you should download and install Microsoft Store manually:</p>
+<ul>
+<li>Get access to Microsoft Store .appx from e.g <a href= https://store.rg-adguard.net/><b>AdGuard Store</b></a> (you need to write https://apps.microsoft.com/store/detail/microsoft-store/9WZDNCRFJBMP?hl=en-us&gl=us link to get access to .appx.)</li>
+<li>Download Microsoft Store .appx (example: <code>Microsoft.WindowsStore_22212.1401.5.0_neutral_~_8wekyb3d8bbwe.msixbundle</code>) and Microsoft.UI.Xaml .appx (example: <code>Microsoft.UI.Xaml.2.4_2.42007.9001.0_arm64__8wekyb3d8bbwe.appx</code>) from the page opened above</li>
+<li>Run Windows Powershell with Admininistrator rights, go to .appx path and install Microsoft.UI.Xaml first: <code>Add-AppxPackage -Path .\Microsoft.UI.Xaml.2.7_7.2208.15002.0_arm64__8wekyb3d8bbwe.Appx</code>, then install Microsoft Store: <code>Add-AppxPackage -Path .\Microsoft.WindowsStore_22210.1401.6.0_neutral___8wekyb3d8bbwe.Msixbundle</code></li>
+</ul>
+<hr></hr>
+<small><small>(c) 2023 Ilya114</small></small>
+</body>
+</html>
+
