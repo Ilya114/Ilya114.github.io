@@ -3,23 +3,28 @@ html {
     color: white;
     font-family: "Roboto";
 }
+
 body {background-color: #000020;}
 a:link, a:visited {
     color: white;
     background-color: transparent;
     text-decoration: none;
 }
+
 a {
     text-decoration: none;
 }
+
 a:active {
     background-color: 190, 190, 190;
     color: grey;
 }
+
 table, th, td, tr {
     border: 1px solid grey;
     border-collapse: collapse;
 }
+
 .btnnav {
     background-color: transparent;
     border: none;
@@ -27,6 +32,7 @@ table, th, td, tr {
     text-align: center;
     text-decoration: none;
 }
+
 .nav {
     float: left;
     display: inline-table;

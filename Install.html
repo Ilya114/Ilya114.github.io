@@ -119,7 +119,7 @@ mkfs.ntfs -f /dev/block/by-name/win -L WINVAYU<br>
 <code>dism /apply-image /ImageFile:path\to\install.wim /index:1 /ApplyDir:X:\</code></p>
 
 <p><b>Create Windows bootloader files for the EFI:</b> <code>bcdboot X:\Windows /s Y: /f UEFI</code></p>
-
+driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r -p X:
 <p><b>Allow unsigned drivers: </b><code>bcdedit /store Y:\EFI\Microsoft\BOOT\BCD /set {default} testsigning on</code><br>
 <small>If don't do this you'll get a BSOD</small></p>
 
@@ -129,7 +129,7 @@ mkfs.ntfs -f /dev/block/by-name/win -L WINVAYU<br>
 If your device is `Tianma` `msm_drm.dsi_display0` will be `dsi_j20s_36_02_0a_video_display`<br>
 If your device is `Huaxing` `msm_drm.dsi_display0` will be `dsi_j20s_42_02_0b_video_display`, if it is, go to the drivers folder `Vayu-Drivers/components/QC8150/Device/DEVICE.SOC_QC8150.VAYU/Drivers/Touch/` and delete j20s_novatek_ts_fw01.bin, finally rename j20s_novatek_ts_fw02.bin to j20s_novatek_ts_fw01.bin</small></p>
 
-<p><b>Install drivers: </b><code>driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r <vayudriversfolder> -p X:</code><br>
+<p><b>Install drivers: </b><code>driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r `vayudriversfolder` -p X:</code><br>
 <small>Replace `vayudriversfolder` with the location of the drivers folder</small></p>
 
 <b>Boot and setting Windows:</b><br>
