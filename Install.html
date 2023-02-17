@@ -35,7 +35,7 @@
     <li><a href="https://uupdump.net/"><b>Windows 10/11 ARM image</b></a> (Windows 11 is recommended)</li>
     <li><a href="https://developer.android.com/studio/releases/platform-tools"><b>platform-tools</b></a> (ADB & Fastboot)</li>
     <li><a href="files/win-x64.zip"><b>DriverUpdater</b></a> for install and update <a href="files/drivers_2.3.0.zip"><b>drivers</a></b></li>
-    <li><a href="files/vayu-uefi-v2.1.0-release.zip"><b>UEFI image</b></a></li>
+    <li><a href="files/uefi-installer-vayu-tianma.zip"><b>Tianma</a></b> or <a href="files/uefi-installer-vayu-huaxing.zip"><b>Huaxing</b> UEFI image</li>
     <li>Modified <a href="files/twrp_mod.zip"><b>TWRP</b></a> or <a href="files/ofox_mod.zip"><b>OrangeFox</b></a></li>
 </ul>
 
@@ -134,20 +134,7 @@ If your device is `Huaxing` `msm_drm.dsi_display0` will be `dsi_j20s_42_02_0b_vi
 
 <b>Boot and setting Windows:</b><br>
 
-<details>
-<summary>Dualboot between Android and Windows</summary>
-
-<li>You should follow <b><a href="Dualboot.html">this guide</a></b></li>
-
-</details>
-
-<details>
-<summary>Boot Windows manually every time</summary>
-
-Reboot the phone into fastboot then boot into UEFI: <code>fastboot boot `uefi.img`</code><br>
-
-Android will boot on reboot, you need boot into UEFI again to boot into Windows.
-</details>
+<p>Flash UEFI .zip and press "Continue boot" in boot menu. If you want boot to Android, press "Reboot to Android".</p>
 
 <p><li>If you have a BSOD with error code BOUND_IMAGE_UNSUPPORTED when you first boot Windows, you need to use <b><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro/releases">old UEFI</a></b> for first boot (touchscreen not working in the old version of UEFI).</p>
 <details>

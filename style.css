@@ -41,3 +41,9 @@ table, th, td, tr {
 a:hover {
     color: grey;
 }
+
+@media screen and (max-width: 834px) {
+  .nav {
+    text-align: center;
+  }
+}
