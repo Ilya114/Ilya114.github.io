@@ -1,10 +1,18 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
 html {
+    font-family: system-ui;
+    background-color: #0D1117;
     color: white;
-    font-family: "Roboto";
 }
 
-body {background-color: #000020;}
+body {
+    margin: 0;
+}
+
+.padding {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 a:link, a:visited {
     color: white;
     background-color: transparent;
@@ -31,19 +39,43 @@ table, th, td, tr {
     font-size: 16px;
     text-align: center;
     text-decoration: none;
+    color: white;
+    outline: none;
 }
 
 .nav {
-    float: left;
-    display: inline-table;
+    background-color: #21262d;
+    padding: 0.8rem;
+}
+
+.sidebar {
+    background-color: #21262d;
+    padding: 10px;
+    display: none;
+}
+
+.sidebar button {
+    padding: 5px;
+    padding-right: 10px;
+}
+
+.navph {
+    background-color: #21262d;
+    padding: 0.8rem;
 }
 
 a:hover {
     color: grey;
 }
 
-@media screen and (max-width: 834px) {
+@media screen and (max-width: 1080px) {
   .nav {
-    text-align: center;
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1081px) {
+  .navph {
+    display: none;
   }
 }
