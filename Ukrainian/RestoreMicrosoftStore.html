@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<title>Відновлення Microsoft Store</title>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../main.js"></script>
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<div class="nav">
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">Канал</a></button>
+    <button class = "btnnav"><a href="Guides.html">Посібники</a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">Група</a></button>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">Проект на GitHub</a></button>
+    <button class = "btnnav"><a href="LanguageSelector.html">Мова</a></button>
+    <button class = "btnnav"><a href="Status.html">Статус проекту</a></button>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Повідомити про помилки</a></button>
+</div>
+
+<div class="navph">
+    <button class = "btnnav" onclick="opensid()"><b>☰ Меню</b></button>
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <button class = "btnnav" onclick="closesid()">❌ Закрити меню</button><br>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">📰 Канал</a></button><br>
+    <button class = "btnnav"><a href="Guides.html">📖 Посібники</a></button><br>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">🗣️ Група</a></button><br>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">📖 Проект на GitHub</a></button><br>
+    <button class = "btnnav"><a href="LanguageSelector.html">🌍 Мова</a></button><br>
+    <button class = "btnnav"><a href="Status.html">📊 Статус проекту</a></button><br>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">🖊️ Повідомити про помилки</a></button><br>
+</div>
+
+<div class="padding">
+<p><b style="font-size: 20px">Відновлення Microsoft Store</b><br></p>
+<p>Іноді UUPDump не завантажує деякі файли, і Microsoft Store може бути відсутнім у вашій збірці Windows. Напишіть цю команду в PowerShell, щоб відновити Microsoft Store: <code>wsreset -i</code>. У центрі сповіщень має відображатися хід встановлення. Якщо це не допомогло, завантажте та інсталюйте Microsoft Store вручну:</p>
+<ul>
+<li>Отримайте доступ до .appx Microsoft Store, використовуючи, наприклад, <a href="https://store.rg-adguard.net"><b>AdGuard Store</b></a> (вам потрібно ввести посилання https://apps.microsoft.com/store/detail/microsoft-store/9WZDNCRFJBMP?hl=en-us&gl=us, щоб отримати доступ до .appx.)</li>
+<li>Завантажте .appx Microsoft Store  (наприклад: <code>Microsoft.WindowsStore_22212.1401.5.0_neutral_~_8wekyb3d8bbwe.msixbundle</code>) і .appx Microsoft.UI.Xaml (наприклад: <code>Microsoft.UI.Xaml. 2.4_2.42007.9001.0_arm64__8wekyb3d8bbwe.appx</code>) зі сторінки, відкритої раніше</li>
+<li>Запустіть Windows Powershell із правами адміністратора, перейдіть до шляху .appx і спочатку встановіть Microsoft.UI.Xaml: <code>Add-AppxPackage -Path .\Microsoft.UI.Xaml.2.7_7.2208.15002.0_arm64__8wekyb3d8bbwe.Appx</code>, потім встановіть Microsoft Store: <code>Add-AppxPackage -Path .\Microsoft.WindowsStore_22210.1401.6.0_neutral___8wekyb3d8bbwe.Msixbundle</code></li>
+</ul>
+<hr></hr>
+<small><small>(c) 2023 Ilya114</small></small>
+</div>
+</body>
+</html>
+

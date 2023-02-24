@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<title>Перевстановлення Windows</title>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../main.js"></script>
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<div class="nav">
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">Канал</a></button>
+    <button class = "btnnav"><a href="Guides.html">Посібники</a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">Група</a></button>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">Проект на GitHub</a></button>
+    <button class = "btnnav"><a href="LanguageSelector.html">Мова</a></button>
+    <button class = "btnnav"><a href="Status.html">Статус проекту</a></button>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Повідомити про помилки</a></button>
+</div>
+
+<div class="navph">
+    <button class = "btnnav" onclick="opensid()"><b>☰ Меню</b></button>
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <button class = "btnnav" onclick="closesid()">❌ Закрити меню</button><br>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">📰 Канал</a></button><br>
+    <button class = "btnnav"><a href="Guides.html">📖 Посібники</a></button><br>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">🗣️ Група</a></button><br>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">📖 Проект на GitHub</a></button><br>
+    <button class = "btnnav"><a href="LanguageSelector.html">🌍 Мова</a></button><br>
+    <button class = "btnnav"><a href="Status.html">📊 Статус проекту</a></button><br>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">🖊️ Повідомити про помилки</a></button><br>
+</div>
+
+<div class="padding">
+<h2>Інструкція з перевстановлення Windows</h2>
+
+<b>Потрібні файли:</b>
+<ul>
+    <li><a href="https://uupdump.net/"><b>Образ Windows 10/11 ARM</b></a> (11 рекомендується)</li>
+    <li><a href="https://developer.android.com/studio/releases/platform-tools"><b>platform-tools</b></a> (ADB & Fastboot)</li>
+    <li><a href="files/win-x64.zip"><b>DriverUpdater</b></a> для встановлення та оновлення <a href="files/drivers_2.3.0.zip"><b>драйверів</a></b></li>
+    <li>UEFI для панелі <a href="files/uefi-installer-vayu-tianma.zip"><b>Tianma</a></b> або <a href="files/uefi-installer-vayu-huaxing.zip"><b>Huaxing</b>.</li>
+    <li>Модифікований <a href="files/twrp_mod.zip"><b>TWRP</b></a> або <a href="files/ofox_mod.zip"><b>OrangeFox</b></a></li>
+</ul>
+
+<p><b>Запустіть adb shell: <code>adb shell</code></b></p>
+
+<p><b>Відформатуйте розділи для їх подальшого використання:</b><br>
+<code>
+mkfs.fat -F32 -s1 /dev/block/by-name/esp -n ESPVAYU<br>
+mkfs.ntfs -f /dev/block/by-name/win -L WINVAYU<br>
+</code></p>
+
+<p><b style="font-size: 20px">Встановлення Windows</b><br>
+<small>Вам потрібно вимкнути MTP у розділі "Монтування"</small></p>
+
+<p><b>Запустіть скрипт msc.sh: </b><code>adb shell msc.sh</code></p>
+
+<p><b>Призначення літер розділам</b><br>
+<small>Коли ваш телефон визначився як диск запустіть diskpart</small><br>
+<code>Використовуйте list vol для того, щоб знайти розділи Windows і ESP, вони називаються "WINVAYU" і "ESPVAYU"<br>
+# select volume <win-partition-number><br>
+# assign letter=x<br>
+# select volume <esp-partition-number><br>
+# assign letter=y<br>
+# exit </code></p>
+
+<p><b>Розгортання образу Windows</b><br>
+<small>Замініть 'path\to\install.wim' дійсним шляхом до install.wim, він знаходиться у теці sources всередині вашого ISO. Ви можете отримати цей файл розпакувавши або смонтувавши його</small><br>
+<code>dism /apply-image /ImageFile:path\to\install.wim /index:1 /ApplyDir:X:\</code></p>
+
+<p><b>Створіть файли завантажувача Windows:</b> <code>bcdboot X:\Windows /s Y: /f UEFI</code></p>
+driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r -p X:
+<p><b>Дозвольте непідписані драйвера: </b><code>bcdedit /store Y:\EFI\Microsoft\BOOT\BCD /set {default} testsigning on</code><br>
+<small>Якщо ви цього не зробите, то отримаєте BSOD</small></p>
+
+<p><b id="check-panel-type">Дізнайтесь, який у вас тип панелі</b><br>
+<small>Перейдіть у теку <code>platform-tools</code> і запустіть: </small><code>adb shell cat /proc/cmdline</code>
+<small>Знайдіть `msm_drm.dsi_display0` майже у низу<br>
+Якщо ваш пристрій Tianma, то `msm_drm.dsi_display0` буде `dsi_j20s_36_02_0a_video_display`<br>
+Якщо ваш пристрій Huaxing, то `msm_drm.dsi_display0` буде `dsi_j20s_42_02_0b_video_display`. Вам треба перейти до теки у драйверах: `Vayu-Drivers/components/QC8150/Device/DEVICE.SOC_QC8150.VAYU/Drivers/Touch/`, видалити `j20s_novatek_ts_fw01.bin`, і перейменувати `j20s_novatek_ts_fw02.bin` в `j20s_novatek_ts_fw01.bin`</small></p>
+
+<p><b>Встановлення драйверів: </b><code>driverupdater.exe -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r `vayudriversfolder` -p X:</code><br>
+<small>Замініть `vayudriversfolder` шляхом к теці з вашими драйверами</small></p>
+
+<b>Завантаження і налаштування Windows:</b><br>
+
+<p>Прошийте vayu-uefi-installer-(ім'я вашої панели).zip і після перезавантаження натисніть "Continue boot" два рази. Якщо ви хочете завантажитись у Android, натисніть "Reboot to Android" два рази.</p>
+
+<p><li>Якщо під час першого завантаження Windows у вас BSOD із кодом помилки BOUND_IMAGE_UNSUPPORTED, потрібно використовувати <b><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro/releases">старий UEFI</a></b> для першого завантаження (сенсорний екран не працює в старій версії UEFI).</p>
+<details>
+<summary>Інструкція з налаштування датчиків для їх роботи у Windows</summary>
+<p><b>Завантажте TWRP чи OrangeFox через комп'ютер за допомогою fastboot: <code>fastboot boot recovery.img</code></b></p>
+<p><b>Змонтуйте розділ Windows: перейдіть до меню "Монтування" і натисніть на "Windows" partition</code></b></p>
+<p><b>Під'єднайте телефон до компьютера і запустіть adb shell: <code>adb shell</code></b></p>
+<p><b>Видаліть вже існуючий каталог `sensors` з Windows: <code>rm -r /win/Windows/System32/Drivers/DriverData/QUALCOMM/fastRPC/persist/sensors</code></b></p>
+<p><b>Скопіюйте нову папку `sensors` з /persist: <code>cp -r /persist/sensors /win/Windows/System32/Drivers/DriverData/QUALCOMM/fastRPC/persist</code></b>
+</details>
+
+<details>
+<summary>Інструкції з налаштування модему для роботи модему (без Ican0 працює тільки мобільний інтернет, потрібно перед кожним завантаженням Windows)</summary>
+<p><b>Завантажте TWRP чи OrangeFox через комп'ютер за допомогою fastboot: <code>fastboot boot recovery.img</code></b></p>
+<p><b>Змонтуйте розділ Windows: перейдіть до меню "Монтування" і натисніть на "Windows" partition</code></b></p>
+<p><b>Під'єднайте телефон до компьютера і запустіть adb shell: <code>adb shell</code></b></p>
+<p><b>Видаліть поточні файли модему: <code>rm /win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/bootmodem_fs1 /win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/bootmodem_fs2</code></b>
+<p><b>Скопіюйте нові файли модему: <code>dd if=/dev/block/by-name/modemst1 of=/win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/ && dd if=/dev/block/by-name/modemst2 of=/win/Windows/System32/DriverStore/FileRepository/qcremotefs8150_`randomdata`/</code></b></p>
+</details>
+<hr></hr>
+<small><small>(c) 2023 Ilya114</small></small>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<title>Оновлення драйверів</title>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../main.js"></script>
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<div class="nav">
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">Канал</a></button>
+    <button class = "btnnav"><a href="Guides.html">Посібники</a></button>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">Група</a></button>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">Проект на GitHub</a></button>
+    <button class = "btnnav"><a href="LanguageSelector.html">Мова</a></button>
+    <button class = "btnnav"><a href="Status.html">Статус проекту</a></button>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">Повідомити про помилки</a></button>
+</div>
+
+<div class="navph">
+    <button class = "btnnav" onclick="opensid()"><b>☰ Меню</b></button>
+    <button class = "btnnav"><a href="index.html"><b>Windows on POCO X3 Pro</b></a></button>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <button class = "btnnav" onclick="closesid()">❌ Закрити меню</button><br>
+    <button class = "btnnav"><a href="https://t.me/winonvayuch">📰 Канал</a></button><br>
+    <button class = "btnnav"><a href="Guides.html">📖 Посібники</a></button><br>
+    <button class = "btnnav"><a href="https://t.me/winonvayu">🗣️ Група</a></button><br>
+    <button class = "btnnav"><a href="https://github.com/Icesito68/Port-Windows-11-Poco-X3-pro">📖 Проект на GitHub</a></button><br>
+    <button class = "btnnav"><a href="LanguageSelector.html">🌍 Мова</a></button><br>
+    <button class = "btnnav"><a href="Status.html">📊 Статус проекту</a></button><br>
+    <button class = "btnnav"><a href="https://github.com/wormstest/wormstest.github.io/issues">🖊️ Повідомити про помилки</a></button><br>
+</div>
+
+<div class="padding">
+<h3>Інструкція по оновленню драйверів</h3>
+<b>Потрібні файли:</b>
+<ul>
+    <li><a href="../files/win-x64.zip"><b>DriverUpdater</b></a> і <a href="../files/drivers_2.3.0.zip"><b>драйвери</a></b></li>
+</ul>
+Запустіть відновлення за допомогою fastboot використовуючи комп'ютер: <code>fastboot boot `recovery.img`</code><br>
+<small>Якщо у вас вже встановлено відновлення, просто затисніть кнопки живлення та гучності + під час запуску телефону</small></p>
+
+<p><b>Скопіюйте сценарій msc.sh в телефон: <code>adb shell msc.sh</code></b></p>
+
+<p><b>Призначення літери розділам</b><br>
+<small>Коли ваш телефон визначився як диск запустіть diskpart</small><br>
+<code>Використовуйте list vol для того, щоб знайти розділи Windows і ESP, вони називаються "WINVAYU" і "ESPVAYU"<br>
+# select volume <win-partition-number><br>
+# assign letter=x<br>
+# select volume <esp-partition-number><br>
+# assign letter=y<br>
+# exit </code></p>
+
+<p><b>Встановлення драйверів</b><br>
+<small>Відкрийте командний рядок і перейдіть у теку з DriverUpdater і драйверами.</small><br>
+<small>Замініть `vayudriversfolder` на вашу назву теки з драйверами. Відкрийте cmd від імені адміністратора</small><br>
+<code>.\driverupdater -d `vayudriversfolder`\definitions\Desktop\ARM64\Internal\vayu.txt -r `vayudriversfolder` -p X:</code>
+<hr></hr>
+<small><small>(c) 2023 Ilya114</small></small>
+</div>
+</body>
+</html>
+
